@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Shades Project</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+	<body>
+		<div>
+			<header>
+				<div class="relative bg-white">
+					<div class="max-w-7xl mx-auto px-4 sm:px-6">
+						<div
+							class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
+						>
+							<div
+								class="flex justify-start lg:w-0 lg:flex-1 text-indigo-700 font-bold text-2xl"
+							>
+								<a href="#">
+									<span>Shades Project</span>
+								</a>
+							</div>
+
+							<nav class="hidden md:flex space-x-10">
+								<a
+									href="#"
+									class="text-base font-medium text-gray-500 hover:text-gray-900"
+								>
+									Upload Image
+								</a>
+
+								<a
+									href="#"
+									class="text-base font-medium text-gray-500 hover:text-gray-900"
+								>
+									About Us
+								</a>
+								<a
+									href="#"
+									class="text-base font-medium text-gray-500 hover:text-gray-900"
+								>
+									Contact Us
+								</a>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<section class="min-h-[50vh] flex my-12 mx-auto max-w-6xl px-8 space-x-4">
+				<div class="flex-1 flex justify-center items-center">
+					<div class="mt-1 sm:mt-0 sm:col-span-2 w-full">
+						<div
+							class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+						>
+							<div class="space-y-1 text-center">
+								<svg
+									class="mx-auto h-12 w-12 text-gray-400"
+									stroke="currentColor"
+									fill="none"
+									viewBox="0 0 48 48"
+									aria-hidden="true"
+								>
+									<path
+										d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+								<div class="flex text-sm text-gray-600">
+									<label
+										for="file-upload"
+										class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+									>
+										<span>Upload a file</span>
+										<input
+											id="file-upload"
+											name="file-upload"
+											type="file"
+											class="sr-only"
+										/>
+									</label>
+									<p class="pl-1">or drag and drop</p>
+								</div>
+								<p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex-1 bg-gray-100">
+					<div
+						id="image-upload-preview"
+						class="relative flex items-center text-center justify-center"
+					>
+						<img src="" class="opacity-40 mx-auto" />
+						<h2
+							id="upload-status"
+							class="absolute text-white drop-shadow-lg text-2xl font-bold top-0 left-0 w-full h-full flex items-center justify-center"
+						>
+							Uploading...
+						</h2>
+					</div>
+
+					<div id="results" class="whitespace-pre font-mono"></div>
+				</div>
+			</section>
+		</div>
+
+		<script src="/script.js"></script>
+	</body>
+</html>
