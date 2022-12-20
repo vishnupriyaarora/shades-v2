@@ -42,7 +42,7 @@ async function handleFileSelect(evt) {
 	}
 
 	try {
-		const response = await fetch("http://localhost:3000/model-output", {
+		const response = await fetch("http://146.190.112.143:3000/model-output", {
 			method: "POST",
 			body: formData,
 		})
