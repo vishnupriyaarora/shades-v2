@@ -1,3 +1,7 @@
 #image-upload-preview {
-    display: none;
+	display: none;
+}
+
+body {
+	background: #efefef;
 }

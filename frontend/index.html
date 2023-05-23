@@ -17,7 +17,7 @@
 							class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
 						>
 							<div
-								class="flex justify-start lg:w-0 lg:flex-1 text-indigo-700 font-bold text-2xl"
+								class="flex justify-start lg:w-0 lg:flex-1 text-indigo-700 font-bold text-lg"
 							>
 								<a href="#">
 									<span>Shades Project</span>
@@ -29,7 +29,14 @@
 									href="#"
 									class="text-base font-medium text-gray-500 hover:text-gray-900"
 								>
-									Upload Image
+									Resources
+								</a>
+
+								<a
+									href="#"
+									class="text-base font-medium text-gray-500 hover:text-gray-900"
+								>
+									Scan
 								</a>
 
 								<a
@@ -50,9 +57,15 @@
 				</div>
 			</header>
 
-			<section class="min-h-[50vh] flex my-12 mx-auto max-w-6xl px-8 space-x-4">
+			<section
+				class="min-h-[50vh] flex my-12 mx-auto max-w-6xl px-8 space-x-4"
+			>
 				<div class="flex-1 flex justify-center items-center">
 					<div class="mt-1 sm:mt-0 sm:col-span-2 w-full">
+						<h1 class="text-2xl mb-8 text-indigo-700 font-semibold">
+							The next generation health<br />
+							app for families
+						</h1>
 						<div
 							class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
 						>
@@ -74,7 +87,7 @@
 								<div class="flex text-sm text-gray-600">
 									<label
 										for="file-upload"
-										class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+										class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
 									>
 										<span>Upload a file</span>
 										<input
@@ -82,16 +95,27 @@
 											name="file-upload"
 											type="file"
 											class="sr-only"
+											accept="image/*;capture=camera"
 										/>
 									</label>
-									<p class="pl-1">or drag and drop</p>
+									<p class="pl-1">
+										or
+										<label
+											for="file-upload"
+											class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+										>
+											scan from your phone</label
+										>
+									</p>
 								</div>
-								<p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+								<p class="text-xs text-gray-500">
+									PNG, JPG, GIF up to 10MB
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="flex-1 bg-gray-100">
+				<div class="flex-1">
 					<div
 						id="image-upload-preview"
 						class="relative flex items-center text-center justify-center"
@@ -103,7 +127,12 @@
 						></h2>
 					</div>
 
-					<div id="results" class="whitespace-pre font-mono"></div>
+					<div
+						id="results"
+						class="whitespace-pre rounded-md p-2 bg-gray-100 font-mono"
+					>
+						<img src="/female-doctor.png" />
+					</div>
 				</div>
 			</section>
 		</div>
