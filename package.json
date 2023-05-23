@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "concurrently \"npm run frontend\" \"npm run backend\"",
 		"backend": "cd backend && python3 index.py",
-		"frontend": "static-server ./frontend -p 3001",
+		"frontend": "cd frontend && python3 -m http.server 3001",
 		"convert": "tensorflowjs_converter --input_format=keras ./backend/model.h5",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
