@@ -161,7 +161,7 @@ with app.app_context():
   # Query all users and print
   users = User.query.all()
   for user in users:
-      print(f'User ID: {user.id}, Name: {user.name}, Email: {user.email}, Strings: {user.get_strings()}')
+      print(f'User ID: {user.id}, Name: {user.name}, Username: {user.username}, Password: {user.password}, Strings: {user.get_strings()}')
 
 
 if __name__ == '__main__':
