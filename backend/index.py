@@ -73,9 +73,9 @@ def login():
     user = User.query.filter_by(username=username, password=password).first()
     if user:
         # Store the user's username in the session
-        return "ok"
+        return user.name
     else:
-        return "Invalid username or password!"
+        return "not-found-error"
 
 def decode_img(img):
   img = tf.image.decode_jpeg(img, channels=3)

@@ -106,20 +106,26 @@ function loginUser(e) {
 		},
 		body: JSON.stringify(userData),
 	})
-		.then((response) => response.text())
+		.then((response) => {
+			if (!response.ok) return Promise.reject('error')
+			response.text()
+		})
 		.then((data) => {
-			if (data === 'ok') {
-				localStorage.setItem('username', username)
-				location.href = '/scan.html'
-			} else {
+			if (data === 'not-found-error') {
 				alert(
 					'Something went wrong logging. Please check your username and password.'
 				)
+			} else {
+				localStorage.setItem('name', data)
+				localStorage.setItem('username', username)
+				location.href = '/scan.html'
 			}
 		})
 		.catch((error) => {
 			console.error('Error:', error)
-			// Handle any errors that occurred during the request
+			alert(
+				'Something went wrong logging. Please check your username and password and try again.'
+			)
 		})
 		.finally(() => {
 			document
