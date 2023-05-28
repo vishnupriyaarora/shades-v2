@@ -28,9 +28,18 @@ function sleep(duration) {
 
 async function handleFileSelect(evt) {
 	let files = evt.target.files // FileList object
+	const file = files[0]
+	if (!file) return
 
-	// use the 1st file from the list
-	let file = files[0]
+	const fileName = file.name.toLowerCase()
+	if (
+		fileName.endsWith('jpg') ||
+		fileName.endsWith('png') ||
+		fileName.endsWith('gif')
+	) {
+		alert('Only .jpg, .png, or .gif file formats are allowed')
+		return
+	}
 
 	const tempImageSrc = URL.createObjectURL(file)
 
