@@ -36,7 +36,7 @@ class User(db.Model):
 # Route for registration (accepts only POST requests)
 @app.route('/register', methods=['POST', 'OPTIONS'])
 def register():
-    if request.method == 'OPTIONS'
+    if request.method == 'OPTIONS':
       return 'ok'
     username = request.form['username']
     password = request.form['password']
