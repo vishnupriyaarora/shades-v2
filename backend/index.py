@@ -142,7 +142,9 @@ def upload_image():
   if user:
     # Add a new file path to the user's uploaded_files array
     file_path = image_file.filename
-    user.uploaded_files.append(file_path)
+    strings = user.get_strings()
+    strings.append(file_path)
+    user.set_strings(strings)
 
     # Commit the changes to the database
     db.session.commit()

@@ -39,6 +39,8 @@ async function handleFileSelect(evt) {
 	// Create a FormData object to send the file in the request body
 	const formData = new FormData()
 	formData.append('file', file)
+	if (localStorage.getItem('username'))
+		formData.append('username', localStorage.getItem('username'))
 
 	// TODO: Show the backend response data here
 	let backendResponse = {}
@@ -68,8 +70,6 @@ async function handleFileSelect(evt) {
 async function setVisibilityOfElementsAccordingToState() {
 	const els = document.querySelectorAll('.loginlink')
 
-	debugger
-
 	const isLoggedIn = !!localStorage.getItem('username')
 
 	for (let i = 0; i < els.length; i++) {
@@ -94,6 +94,10 @@ function createUser(e) {
 		age: age,
 	}
 
+	document
+		.querySelector('button[type=submit]')
+		.setAttribute('disabled', 'true')
+
 	// Send a POST request to create the user
 	fetch('http://146.190.112.143:3000/register', {
 		method: 'POST',
@@ -102,22 +106,25 @@ function createUser(e) {
 		},
 		body: JSON.stringify(userData),
 	})
-		.then((response) => response.json())
+		.then((response) => response.text())
 		.then((data) => {
-			// Handle the response from the server
-			console.log(data) // Display the response data
-			// Perform any additional actions after user creation
-
-			if (data.status === 'ok') {
+			if (data === 'ok') {
 				localStorage.setItem('username', username)
 				location.href = '/scan.html'
+			} else if (data === 'exists') {
+				alert('User already exists. Please try a different number')
 			} else {
-				alert(data.error)
+				alert('Something went wrong registering. Please try again.')
 			}
 		})
 		.catch((error) => {
 			console.error('Error:', error)
 			// Handle any errors that occurred during the request
+		})
+		.finally(() => {
+			document
+				.querySelector('button[type=submit]')
+				.removeAttribute('disabled')
 		})
 }
 
