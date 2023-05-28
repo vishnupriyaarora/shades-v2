@@ -158,6 +158,12 @@ def upload_image():
 with app.app_context():
   db.create_all()  # create tables
 
+  # Query all users and print
+  users = User.query.all()
+  for user in users:
+      print(f'User ID: {user.id}, Name: {user.name}, Email: {user.email}, Strings: {user.get_strings()}')
+
+
 if __name__ == '__main__':
   app.run(port=3000,host="0.0.0.0")
   print('Ready')
