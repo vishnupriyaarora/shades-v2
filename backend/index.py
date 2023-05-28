@@ -147,7 +147,10 @@ def upload_image():
   return { "class": predicted_classes }
   # return 'Image file uploaded successfully.', 200
 
-if __name__ == '__main__':
+# Create an application context
+with app.app_context():
   db.create_all()  # create tables
+
+if __name__ == '__main__':
   app.run(port=3000,host="0.0.0.0")
   print('Ready')
