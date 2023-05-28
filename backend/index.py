@@ -93,7 +93,7 @@ def process_path(filepath):
 def process_image(image_file):
   print(image_file)
   # Load the Keras model from a saved model file.
-  model = keras.models.load_model('./model.h5', custom_objects={'KerasLayer':hub.KerasLayer})
+  model = keras.models.load_model('./model-v2.h5', custom_objects={'KerasLayer':hub.KerasLayer})
 
   # Preprocess the image file to match the input requirements of the model.
   # preprocessed_image = preprocess_image(image_file)
