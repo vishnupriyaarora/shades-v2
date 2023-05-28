@@ -34,8 +34,10 @@ class User(db.Model):
     self.uploaded_files = uploaded_files
 
 # Route for registration (accepts only POST requests)
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST', 'OPTIONS'])
 def register():
+    if request.method == 'OPTIONS'
+      return 'ok'
     username = request.form['username']
     password = request.form['password']
     # Check if the username already exists in the database
