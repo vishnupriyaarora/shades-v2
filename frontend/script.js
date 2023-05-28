@@ -48,6 +48,7 @@ async function handleFileSelect(evt) {
 	imageBox.style.display = 'block'
 	imageBox.querySelector('img').setAttribute('src', tempImageSrc)
 	uploadStatusH2.innerText = 'Uploading...'
+	results.innerText = ''
 
 	// TODO: Make a backend call to send this image
 
