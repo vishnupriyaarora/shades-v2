@@ -1,5 +1,5 @@
 import keras
-from flask import Flask, request
+from flask import Flask, render_template, request, redirect, session
 from flask_cors import CORS, cross_origin
 import tensorflow_hub as hub
 import keras.utils as image
@@ -8,6 +8,52 @@ from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 from io import BytesIO
 import tensorflow as tf
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import ARRAY
+
+app.secret_key = "secret_key"  # Secret key for session management
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # SQLite database file
+
+# User model for the database
+class User(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  username = db.Column(db.String(100), unique=True)
+  password = db.Column(db.String(100))
+  uploaded_files = db.Column(ARRAY(db.String), nullable=True)
+
+  def __init__(self, username, password, uploaded_files=None):
+    self.username = username
+    self.password = password
+    self.uploaded_files = uploaded_files
+
+# Route for registration (accepts only POST requests)
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.form['username']
+    password = request.form['password']
+    # Check if the username already exists in the database
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
+        return "Username already exists!"
+    # Create a new user and add it to the database
+    new_user = User(username, password)
+    db.session.add(new_user)
+    db.session.commit()
+    return "ok"
+
+# Route for login (accepts only POST requests)
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    # Check if the username and password match a user in the database
+    user = User.query.filter_by(username=username, password=password).first()
+    if user:
+        # Store the user's username in the session
+        session['username'] = user.username
+        return "ok"
+    else:
+        return "Invalid username or password!"
 
 def decode_img(img):
   img = tf.image.decode_jpeg(img, channels=3)
@@ -67,6 +113,20 @@ def upload_image():
     return 'No image file provided.', 400
 
   image_file.save(image_file.filename)
+
+  username = request.form.get('username', '')
+
+  # Get the user instance (assuming you have the user_id or username)
+  user = User.query.filter_by(username=username).first()
+
+  if user:
+    # Add a new file path to the user's uploaded_files array
+    file_path = image_file.filename
+    user.uploaded_files.append(file_path)
+
+    # Commit the changes to the database
+    db.session.commit()
+
   # Process the image file using the Keras model.
   predicted_classes = process_image(image_file.filename)
 
