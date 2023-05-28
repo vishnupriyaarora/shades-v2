@@ -31,6 +31,8 @@ class User(db.Model):
   def __init__(self, username, name, age, password, uploaded_files=None):
     self.username = username
     self.password = password
+    self.name = name
+    self.age = age
     self.uploaded_files = uploaded_files
 
 # Route for registration (accepts only POST requests)
@@ -38,14 +40,17 @@ class User(db.Model):
 def register():
     if request.method == 'OPTIONS':
       return 'ok'
-    username = request.form['username']
-    password = request.form['password']
+    user_data = request.get_json()
+    username = user_data.get('username')
+    password = user_data.get('password')
+    name = user_data.get('name')
+    age = user_data.get('age')
     # Check if the username already exists in the database
     existing_user = User.query.filter_by(username=username).first()
     if existing_user:
         return "exists"
     # Create a new user and add it to the database
-    new_user = User(username, password)
+    new_user = User(username, name, age, password)
     db.session.add(new_user)
     db.session.commit()
     return "ok"
