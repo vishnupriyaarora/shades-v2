@@ -117,7 +117,7 @@ function loginUser(e) {
 	})
 		.then((response) => {
 			if (!response.ok) return Promise.reject('error')
-			response.text()
+			return response.text()
 		})
 		.then((data) => {
 			if (data === 'not-found-error') {
@@ -176,6 +176,7 @@ function createUser(e) {
 		.then((data) => {
 			if (data === 'ok') {
 				localStorage.setItem('username', username)
+				localStorage.setItem('name', name)
 				location.href = '/scan.html'
 			} else if (data === 'exists') {
 				alert('User already exists. Please try a different number')
