@@ -33,9 +33,11 @@ async function handleFileSelect(evt) {
 
 	const fileName = file.name.toLowerCase()
 	if (
-		fileName.endsWith('jpg') ||
-		fileName.endsWith('png') ||
-		fileName.endsWith('gif')
+		!(
+			fileName.endsWith('jpg') ||
+			fileName.endsWith('png') ||
+			fileName.endsWith('gif')
+		)
 	) {
 		alert('Only .jpg, .png, or .gif file formats are allowed')
 		return
