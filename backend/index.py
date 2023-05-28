@@ -43,7 +43,7 @@ def register():
     # Check if the username already exists in the database
     existing_user = User.query.filter_by(username=username).first()
     if existing_user:
-        return "Username already exists!"
+        return "exists"
     # Create a new user and add it to the database
     new_user = User(username, password)
     db.session.add(new_user)
