@@ -68,10 +68,8 @@ def register():
 def login():
     username = request.form['username']
     password = request.form['password']
-    name = request.form['name']
-    age = request.form['age']
     # Check if the username and password match a user in the database
-    user = User.query.filter_by(username=username, name=name, age=age, password=password).first()
+    user = User.query.filter_by(username=username, name=name).first()
     if user:
         # Store the user's username in the session
         return "ok"
