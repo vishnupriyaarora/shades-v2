@@ -81,7 +81,7 @@ def decode_img(img):
   img = tf.image.decode_jpeg(img, channels=3)
   img = tf.image.convert_image_dtype(img, tf.float32)
   # resize the image to the desired size.
-  return tf.image.resize(img, [299, 299])
+  return tf.image.resize(img, [28, 28])
 
 def process_path(filepath):
   # load the raw data from the file as a string
@@ -101,7 +101,7 @@ def process_image(image_file):
   # Pass the preprocessed image to the model and get the predictions.
   print("Starting predictions")
   n_testing_samples = 1
-  X_test = np.zeros((n_testing_samples, 299, 299, 3))
+  X_test = np.zeros((n_testing_samples, 28, 28, 3))
   X_test[0] = process_path(image_file)
 
   predictions = model.predict(X_test)
