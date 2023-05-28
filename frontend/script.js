@@ -12,7 +12,11 @@ if (fileUploadInput) {
 
 // register page
 const regform = document.getElementById('regform')
-regform.addEventListener('submit', createUser, false)
+if (regform) regform.addEventListener('submit', createUser, false)
+
+// login page
+const loginform = document.getElementById('loginform')
+if (loginform) loginform.addEventListener('submit', loginUser, false)
 
 function sleep(duration) {
 	return new Promise((resolve) => {
@@ -75,6 +79,53 @@ async function setVisibilityOfElementsAccordingToState() {
 	for (let i = 0; i < els.length; i++) {
 		els[i].style.display = isLoggedIn ? 'block' : 'none'
 	}
+}
+
+function loginUser(e) {
+	e.preventDefault()
+
+	// Get the user data from the HTML form
+	const username = document.getElementById('pno-address').value
+	const password = document.getElementById('password').value
+
+	// Create an object with the user data
+	const userData = {
+		username: username,
+		password: password,
+	}
+
+	document
+		.querySelector('button[type=submit]')
+		.setAttribute('disabled', 'true')
+
+	// Send a POST request to create the user
+	fetch('http://146.190.112.143:3000/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(userData),
+	})
+		.then((response) => response.text())
+		.then((data) => {
+			if (data === 'ok') {
+				localStorage.setItem('username', username)
+				location.href = '/scan.html'
+			} else {
+				alert(
+					'Something went wrong logging. Please check your username and password.'
+				)
+			}
+		})
+		.catch((error) => {
+			console.error('Error:', error)
+			// Handle any errors that occurred during the request
+		})
+		.finally(() => {
+			document
+				.querySelector('button[type=submit]')
+				.removeAttribute('disabled')
+		})
 }
 
 function createUser(e) {
