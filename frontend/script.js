@@ -133,7 +133,7 @@ function createUser(e) {
 
 	// Get the user data from the HTML form
 	const username = document.getElementById('pno-address').value
-	const password = document.getElementById('age').value
+	const password = document.getElementById('password').value
 	const name = document.getElementById('name').value
 	const age = document.getElementById('age').value
 
