@@ -9,7 +9,6 @@ import numpy as np
 from io import BytesIO
 import tensorflow as tf
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import ARRAY
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -26,14 +25,23 @@ class User(db.Model):
   name = db.Column(db.String(100))
   password = db.Column(db.String(100))
   age = db.Column(db.String(100))
-  uploaded_files = db.Column(ARRAY(db.String), nullable=True)
+  strings = db.Column(db.String)
 
-  def __init__(self, username, name, age, password, uploaded_files=None):
+  def __repr__(self):
+      return '<User %r>' % self.name
+
+  # Use these methods to handle the conversion between list and string
+  def set_strings(self, string_list):
+    self.strings = ";".join(string_list)
+
+  def get_strings(self):
+    return self.strings.split(";") if self.strings else []
+
+  def __init__(self, username, name, age, password):
     self.username = username
     self.password = password
     self.name = name
     self.age = age
-    self.uploaded_files = uploaded_files
 
 # Route for registration (accepts only POST requests)
 @app.route('/register', methods=['POST', 'OPTIONS'])
@@ -66,7 +74,6 @@ def login():
     user = User.query.filter_by(username=username, name=name, age=age, password=password).first()
     if user:
         # Store the user's username in the session
-        session['username'] = user.username
         return "ok"
     else:
         return "Invalid username or password!"
@@ -82,7 +89,6 @@ def process_path(filepath):
   img = tf.io.read_file(filepath)
   img = decode_img(img)
   return img
-
 
 
 def process_image(image_file):
