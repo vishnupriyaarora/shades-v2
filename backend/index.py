@@ -66,8 +66,9 @@ def register():
 # Route for login (accepts only POST requests)
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
+    user_data = request.get_json()
+    username = user_data.get('username')
+    password = user_data.get('password')
     # Check if the username and password match a user in the database
     user = User.query.filter_by(username=username, name=name).first()
     if user:
