@@ -11,6 +11,10 @@ import tensorflow as tf
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 
+app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 app.secret_key = "secret_key"  # Secret key for session management
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # SQLite database file
 
@@ -71,9 +75,7 @@ def process_path(filepath):
   img = decode_img(img)
   return img
 
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 def process_image(image_file):
   print(image_file)
