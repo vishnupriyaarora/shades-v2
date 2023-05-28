@@ -1,15 +1,18 @@
 const results = document.getElementById('results')
 const uploadStatusH2 = document.getElementById('upload-status')
 const imageBox = document.getElementById('image-upload-preview')
-const imageBoxIMG = imageBox.querySelector('img')
+const imageBoxIMG = imageBox ? imageBox.querySelector('img') : null
 
-function attachFileUploadListener() {
-	const fileUploadInput = document.getElementById('file-upload')
+// scan page
+const fileUploadInput = document.getElementById('file-upload')
 
-	if (fileUploadInput) {
-		fileUploadInput.addEventListener('change', handleFileSelect, false)
-	}
+if (fileUploadInput) {
+	fileUploadInput.addEventListener('change', handleFileSelect, false)
 }
+
+// register page
+const regform = document.getElementById('regform')
+regform.addEventListener('submit', createUser, false)
 
 function sleep(duration) {
 	return new Promise((resolve) => {
@@ -92,7 +95,7 @@ function createUser(e) {
 	}
 
 	// Send a POST request to create the user
-	fetch('http://146.190.112.143:3000/create-user', {
+	fetch('http://146.190.112.143:3000/register', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

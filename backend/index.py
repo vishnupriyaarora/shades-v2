@@ -18,10 +18,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # SQLite databa
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(100), unique=True)
+  name = db.Column(db.String(100))
   password = db.Column(db.String(100))
+  age = db.Column(db.String(100))
   uploaded_files = db.Column(ARRAY(db.String), nullable=True)
 
-  def __init__(self, username, password, uploaded_files=None):
+  def __init__(self, username, name, age, password, uploaded_files=None):
     self.username = username
     self.password = password
     self.uploaded_files = uploaded_files
@@ -46,8 +48,10 @@ def register():
 def login():
     username = request.form['username']
     password = request.form['password']
+    name = request.form['name']
+    age = request.form['age']
     # Check if the username and password match a user in the database
-    user = User.query.filter_by(username=username, password=password).first()
+    user = User.query.filter_by(username=username, name=name, age=age, password=password).first()
     if user:
         # Store the user's username in the session
         session['username'] = user.username
