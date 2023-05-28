@@ -70,7 +70,7 @@ def login():
     username = user_data.get('username')
     password = user_data.get('password')
     # Check if the username and password match a user in the database
-    user = User.query.filter_by(username=username, name=name).first()
+    user = User.query.filter_by(username=username, password=password).first()
     if user:
         # Store the user's username in the session
         return "ok"
