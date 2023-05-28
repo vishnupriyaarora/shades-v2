@@ -17,6 +17,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.secret_key = "secret_key"  # Secret key for session management
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # SQLite database file
+db = SQLAlchemy(app)
 
 # User model for the database
 class User(db.Model):
