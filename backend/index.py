@@ -148,5 +148,6 @@ def upload_image():
   # return 'Image file uploaded successfully.', 200
 
 if __name__ == '__main__':
+  db.create_all()  # create tables
   app.run(port=3000,host="0.0.0.0")
   print('Ready')
