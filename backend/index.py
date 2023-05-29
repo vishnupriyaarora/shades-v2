@@ -93,30 +93,22 @@ def process_path(filepath):
 def process_image(image_file):
   print(image_file)
   # Load the Keras model from a saved model file.
-  model = keras.models.load_model('./model-v2.h5', custom_objects={'KerasLayer':hub.KerasLayer})
+  model = keras.models.load_model('./model-v2.h5', custom_objects={'KerasLayer': hub.KerasLayer})
 
   # Preprocess the image file to match the input requirements of the model.
-  # preprocessed_image = preprocess_image(image_file)
-  # preprocessed_image = image_file
+  img = tf.keras.preprocessing.image.load_img(image_file, target_size=(28, 28))
+  img_array = tf.keras.preprocessing.image.img_to_array(img)
+  img_array = preprocess_input(img_array)
+  img_array = tf.expand_dims(img_array, 0)  # Expand dimensions to match the input shape of the model
+
   # Pass the preprocessed image to the model and get the predictions.
-  print("Starting predictions")
-  n_testing_samples = 1
-  X_test = np.zeros((n_testing_samples, 28, 28, 3))
-  X_test[0] = process_path(image_file)
-
-  predictions = model.predict(X_test)
-  class_names = ["benign", "malignant"]
+  predictions = model.predict(img_array)
+  class_names = ["Actinic keratoses", "Basal cell carcinoma", "Benign keratosis-like lesions", "Dermatofibroma", "Melanocytic nevi", "Vascular lesions", "Melanoma"]
   print(predictions)
+
   # Interpret the predictions to determine the model's predicted classes.
-  # predicted_classes = interpret_predictions(predictions)
-
-  threshold = 0.23
-  value = predictions[0][0]
-
-  if value >= threshold:
-    return "maligant"
-  else:
-    return "benign"
+  predicted_classes = [class_names[i] for i in np.argmax(predictions, axis=1)]
+  return predicted_classes[0]
 
   # return prections[0][0] #predicted_classes
 
